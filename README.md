@@ -132,6 +132,9 @@ opencode-backup --encrypt      # GPG symmetric encryption
 opencode-backup --output DIR   # custom output directory
 ```
 
+For non-interactive encryption, set `OPENCODE_BACKUP_PASSPHRASE_FILE` to a
+mode-600 file containing the passphrase.
+
 Backups are written with mode `600` to `~/.opencode/backups` by default.
 Treat them as secrets.
 
