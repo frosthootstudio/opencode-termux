@@ -141,6 +141,24 @@ uname -m
 
 `aarch64` is supported. `armv7l`, `x86_64`, and `i686` are not.
 
+## Cloned Termux, work profile, or secondary user
+
+This project does **not** support cloned/repackaged Termux apps, app cloners,
+work profiles, or secondary Android users.
+
+Termux packages are built for:
+
+```text
+/data/data/com.termux/files
+```
+
+A secondary user uses a different data path, and a renamed package needs a
+rebuilt Termux bootstrap and rebuilt packages. Installing OpenCode inside that
+environment requires rebuilding Termux itself, not just cloning the APK.
+
+For a safe test, use a spare device or an emulator with the official Termux
+package. Do not use an app cloner for a production setup.
+
 ## Running scripts from shared storage
 
 Scripts can live in `/sdcard`, but Termux may not preserve executable bits

@@ -37,6 +37,26 @@ Android 12+ may kill long-running background processes. For long sessions:
 - run `termux-wake-lock`,
 - keep the Termux notification visible.
 
+## Compatibility
+
+Supported:
+
+- Official Termux package `com.termux`.
+- Primary Android user / owner profile.
+- Android aarch64.
+
+Not supported:
+
+- Cloned or repackaged Termux apps.
+- App cloners, dual-app containers, or virtual spaces.
+- Work profiles or secondary Android users.
+- Custom Termux package names or prefixes.
+
+Termux packages are compiled for `/data/data/com.termux/files`. A secondary
+user gets a different data path, and a renamed package needs a rebuilt
+bootstrap and rebuilt packages. This is a Termux limitation, not something the
+OpenCode installer can fix by itself.
+
 ---
 
 ## Quick start
