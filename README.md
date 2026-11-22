@@ -1,0 +1,194 @@
+# OpenCode Native for Termux
+
+Install **OpenCode 2** on **Termux (Android aarch64)** without proot, without
+Ubuntu, and without root.
+
+> **Unofficial community project.** Not affiliated with OpenCode, Termux, or
+> their maintainers. Use at your own risk.
+
+---
+
+## Why this exists
+
+Most Termux guides run OpenCode inside a proot Ubuntu container. This project
+runs the official `linux-arm64` binary directly on Termux by:
+
+1. installing the Termux `glibc-runner` loader,
+2. patching the ELF interpreter with `patchelf`,
+3. using a small launcher that keeps the PTY helper and socket directory in
+   Termux-friendly locations.
+
+The result is lighter than proot and stays inside the Android app sandbox.
+
+---
+
+## Requirements
+
+- Android **aarch64 / arm64** device.
+- Termux installed from **F-Droid** or the official GitHub releases.
+  The Play Store version is outdated.
+- About **500 MB** free space for the OpenCode binary and cache.
+- Internet connection during installation and first run.
+- No root required.
+
+Android 12+ may kill long-running background processes. For long sessions:
+
+- disable battery optimization for Termux,
+- run `termux-wake-lock`,
+- keep the Termux notification visible.
+
+---
+
+## Quick start
+
+```bash
+git clone https://github.com/frosthootstudio/opencode-termux.git
+cd opencode-termux
+bash install.sh
+```
+
+Then:
+
+```bash
+opencode          # first run: let it download the PTY helper, then quit
+opencode-repatch  # patch the helper and write the stable launcher
+opencode -c       # open the TUI again
+opencode-health   # optional sanity check
+```
+
+If `opencode` is not found, open a new Termux session or run `hash -r`.
+
+---
+
+## What the installer does
+
+- Installs `glibc-repo`, `glibc-runner`, `patchelf`, `curl`, `tar`, and `sqlite`.
+- Downloads the latest official `@opencode/cli-linux-arm64` package from npm.
+- Backs up an existing binary before replacing it.
+- Patches the binary to use Termux's glibc loader.
+- Writes the `opencode` launcher to `$PREFIX/bin/opencode`.
+- Installs optional helpers:
+  - `opencode-repatch` — re-patch after an OpenCode upgrade.
+  - `opencode-health` — read-only health check.
+  - `opencode-backup` — backup config/state (optional, see below).
+
+It does **not** install personal configuration, bots, or third-party
+integrations.
+
+### Dry run and checks
+
+```bash
+bash install.sh --check     # inspect prerequisites without changing anything
+bash install.sh --dry-run   # print planned actions without installing
+```
+
+Pin a version if needed:
+
+```bash
+OPENCODE_VERSION=2.3.2 bash install.sh
+```
+
+---
+
+## After an OpenCode upgrade
+
+`opencode upgrade` replaces the binary, so the glibc interpreter and PTY helper
+must be patched again.
+
+```bash
+opencode upgrade
+opencode          # run once so the new PTY helper is downloaded, then quit
+opencode-repatch
+```
+
+Then restart the background service from a **new Termux session** (not from the
+TUI that is currently open):
+
+```bash
+opencode service restart
+opencode-health
+```
+
+---
+
+## Helper commands
+
+| Command | Purpose |
+|---|---|
+| `opencode` | Launcher for the patched binary |
+| `opencode-repatch` | Re-patch binary + PTY helper after upgrade |
+| `opencode-health` | Read-only checks for loader, binary, PTY, service, storage |
+| `opencode-backup` | Create a private backup of config/state |
+
+### Backup
+
+By default the backup contains config and state only. Session database and
+credentials are excluded unless you opt in:
+
+```bash
+opencode-backup                # config + state
+opencode-backup --with-db      # also session DB (contains credentials!)
+opencode-backup --encrypt      # GPG symmetric encryption
+opencode-backup --output DIR   # custom output directory
+```
+
+Backups are written with mode `600` to `~/.opencode/backups` by default.
+Treat them as secrets.
+
+---
+
+## Tested environment
+
+- Android 16, aarch64
+- Termux 0.118.3
+- OpenCode 2.3.2
+
+Other Android versions and devices may work, but the glibc/PTY behavior can
+vary. Please include your Android version, Termux version, and OpenCode version
+when reporting an issue.
+
+---
+
+## Project layout
+
+```text
+.
+├── install.sh
+├── scripts/
+│   ├── repatch.sh
+│   ├── health.sh
+│   └── backup.sh
+├── docs/
+│   ├── INSTALL.md
+│   ├── TROUBLESHOOTING.md
+│   └── TECHNICAL.md
+├── SECURITY.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── LICENSE
+```
+
+---
+
+## Security notes
+
+- Everything runs as your Termux app user. **Do not run as root.**
+- OpenCode configuration, sessions, and backups can contain credentials.
+  Keep them private and never commit them.
+- This installer downloads an official binary from npm. Review the script before
+  running it.
+- Do not install untrusted `AGENTS.md`, skills, plugins, or MCP servers.
+- Report security issues according to [SECURITY.md](SECURITY.md).
+
+---
+
+## Disclaimer
+
+This is an unofficial workaround. OpenCode upgrades can break the glibc or PTY
+patch. There is no warranty. Test in a recoverable environment first.
+
+---
+
+## License
+
+MIT. See [LICENSE](LICENSE).

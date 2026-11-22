@@ -1,0 +1,27 @@
+# Secrets and local state
+*.env
+*.env.*
+!*.env.example
+service.json
+backup.pass
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+
+# OpenCode local data
+.opencode/
+backups/
+*.db
+*.db-wal
+*.db-shm
+*.log
+__pycache__/
+*.pyc
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
