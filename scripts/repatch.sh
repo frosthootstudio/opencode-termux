@@ -7,9 +7,10 @@ PREFIX="${PREFIX:-/data/data/com.termux/files/usr}"
 HOME="${HOME:-/data/data/com.termux/files/home}"
 LOADER="$PREFIX/glibc/lib/ld-linux-aarch64.so.1"
 BIN="${OPENCODE_BIN:-$HOME/.opencode/bin/opencode}"
-LAUNCHER="$PREFIX/bin/opencode"
-PTY_BIN="$HOME/.opencode/bin/opencode-pty"
+LAUNCHER="${OPENCODE_LAUNCHER:-$PREFIX/bin/opencode}"
+PTY_BIN="${OPENCODE_PTY:-$HOME/.opencode/bin/opencode-pty}"
 STAMP="$HOME/.opencode/bin/.opencode-pty.stamp"
+SOCKET_DIR="${OPENCODE_SOCKET_DIR:-$PREFIX/tmp/oc-pty}"
 
 say() { printf '%s\n' "$*"; }
 die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
@@ -97,9 +98,13 @@ else
 fi
 say "      launcher: $LAUNCHER"
 say "      helper:   $PTY_BIN"
-say "      socket:   $PREFIX/tmp/oc-pty"
+say "      socket:   $SOCKET_DIR"
 
 say ""
 say "Versi terpasang: $("$LAUNCHER" --version)"
-say "Selesai. Untuk menerapkan helper PTY, restart service dari sesi Termux lain:"
-say "  opencode service restart"
+if [ "${OPENCODE_SANDBOX:-0}" = "1" ]; then
+  say "Selesai. Sandbox memakai private server; tidak perlu restart service."
+else
+  say "Selesai. Untuk menerapkan helper PTY, restart service dari sesi Termux lain:"
+  say "  opencode service restart"
+fi

@@ -83,7 +83,60 @@ opencode-health
 
 Do not restart the service from inside the TUI that is currently open.
 
-## 5. Uninstall
+## 5. Sandbox install (optional)
+
+To test without touching the normal install:
+
+```bash
+bash install.sh --sandbox
+```
+
+Default layout:
+
+```text
+~/.opencode-sandbox/
+├── bin/opencode
+├── bin/opencode-repatch
+├── bin/opencode-health
+├── bin/opencode-backup
+├── home/
+├── lib/
+└── tmp/
+```
+
+Run:
+
+```bash
+~/.opencode-sandbox/bin/opencode
+~/.opencode-sandbox/bin/opencode-repatch
+~/.opencode-sandbox/bin/opencode-health
+```
+
+The sandbox has its own empty config and no provider credentials. Log in inside
+the sandbox if needed:
+
+```bash
+~/.opencode-sandbox/bin/opencode auth login
+```
+
+The sandbox uses the real Termux glibc loader but has its own HOME, config,
+sessions, cache, socket, and backups. It uses a private server
+(`--standalone`).
+
+Remove everything:
+
+```bash
+rm -rf ~/.opencode-sandbox
+```
+
+Custom location:
+
+```bash
+bash install.sh --sandbox ~/oc-test
+rm -rf ~/oc-test
+```
+
+## 6. Uninstall
 
 Remove the launcher, binary, and helpers:
 

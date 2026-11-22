@@ -80,6 +80,59 @@ If `opencode` is not found, open a new Termux session or run `hash -r`.
 
 ---
 
+## Sandbox test
+
+Try the installer without touching your normal OpenCode installation:
+
+```bash
+bash install.sh --sandbox
+```
+
+Default sandbox:
+
+```text
+~/.opencode-sandbox/
+├── bin/
+│   ├── opencode
+│   ├── opencode-repatch
+│   ├── opencode-health
+│   └── opencode-backup
+├── home/          # isolated HOME, config, sessions, cache
+├── lib/
+└── tmp/
+```
+
+Run it:
+
+```bash
+~/.opencode-sandbox/bin/opencode
+~/.opencode-sandbox/bin/opencode-repatch
+~/.opencode-sandbox/bin/opencode-health
+```
+
+The sandbox starts with its own empty config and no provider credentials. Log
+in inside the sandbox if needed:
+
+```bash
+~/.opencode-sandbox/bin/opencode auth login
+```
+
+or use `/connect` in the TUI.
+
+The sandbox uses the real Termux glibc loader and prefix, but its HOME,
+config, session data, cache, socket, and backups are isolated. It runs with a
+private server (`--standalone`) instead of the shared background service.
+
+Delete everything with:
+
+```bash
+rm -rf ~/.opencode-sandbox
+```
+
+No files are written to `~/.opencode/bin` or `$PREFIX/bin` in sandbox mode.
+
+---
+
 ## What the installer does
 
 - Installs `glibc-repo`, `glibc-runner`, `patchelf`, `curl`, `tar`, and `sqlite`.

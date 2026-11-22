@@ -100,6 +100,25 @@ opencode service restart
 - No bundled OpenCode binary in this repository; the installer downloads from
   the official npm package.
 
+## Sandbox mode
+
+`install.sh --sandbox` creates a self-contained directory (default
+`~/.opencode-sandbox`) with:
+
+- its own `home/` used as `HOME`,
+- `XDG_*` directories and `TMPDIR`,
+- a private PTY socket directory,
+- backup output,
+- copies of the repatch/health/backup scripts.
+
+The launcher adds `--standalone`, so OpenCode starts a private server instead of
+connecting to the shared background service. This keeps sessions and provider
+credentials separate from the normal install.
+
+The Termux prefix and glibc loader are still shared because they belong to the
+Termux app, not to OpenCode. Everything written by the sandbox stays under the
+sandbox directory, so `rm -rf` removes it completely.
+
 ## Failure modes
 
 - OpenCode changes its PTY helper layout or validation.

@@ -6,10 +6,10 @@ PREFIX="${PREFIX:-/data/data/com.termux/files/usr}"
 HOME="${HOME:-/data/data/com.termux/files/home}"
 TMPDIR="${TMPDIR:-$PREFIX/tmp}"
 LOADER="$PREFIX/glibc/lib/ld-linux-aarch64.so.1"
-BIN="$HOME/.opencode/bin/opencode"
-LAUNCHER="$PREFIX/bin/opencode"
-PTY="$HOME/.opencode/bin/opencode-pty"
-SOCKET_DIR="$PREFIX/tmp/oc-pty"
+BIN="${OPENCODE_BIN:-$HOME/.opencode/bin/opencode}"
+LAUNCHER="${OPENCODE_LAUNCHER:-$PREFIX/bin/opencode}"
+PTY="${OPENCODE_PTY:-$HOME/.opencode/bin/opencode-pty}"
+SOCKET_DIR="${OPENCODE_SOCKET_DIR:-$PREFIX/tmp/oc-pty}"
 FAIL=0
 WARN=0
 
@@ -109,7 +109,9 @@ else
 fi
 
 section "Service"
-if command -v timeout >/dev/null 2>&1; then
+if [ "${OPENCODE_SANDBOX:-0}" = "1" ]; then
+  info "sandbox memakai private server (--standalone); cek service dilewati"
+elif command -v timeout >/dev/null 2>&1; then
   OUT="$(timeout 25 "$LAUNCHER" service status 2>&1 || true)"
   if printf '%s' "$OUT" | grep -qiE 'running|active|pid|listen|http'; then
     ok "service merespons"

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 — 2026-11-22
+
+- Add `--sandbox` install mode with isolated HOME, config, sessions, cache,
+  socket, and backups.
+- Sandbox runs with a private server (`--standalone`).
+- Sandbox helper wrappers for repatch, health, and backup.
+- Add download retries and a clearer curl failure path.
+- Document clone/work-profile limitations.
+
 ## 0.1.0 — 2026-11-22
 
 Initial public release.
