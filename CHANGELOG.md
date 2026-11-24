@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1 — 2026-11-24
+
+- Install `which` automatically; fixes `opencode upgrade` failing with
+  `which: command not found`.
+- Health check warns when `which` is missing.
+- Document the upgrade error and fix.
+
 ## 0.2.0 — 2026-11-22
 
 - Add `--sandbox` install mode with isolated HOME, config, sessions, cache,

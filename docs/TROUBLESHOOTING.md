@@ -40,6 +40,19 @@ Check that the launcher exists:
 ls -l "$PREFIX/bin/opencode"
 ```
 
+## `opencode upgrade` fails with `which: command not found`
+
+The OpenCode upgrade script calls `which`. Some fresh Termux installs do not
+include it.
+
+```bash
+pkg install -y which
+which which
+opencode upgrade
+```
+
+The installer in this repository now installs `which` automatically.
+
 ## `opencode upgrade` broke the install
 
 OpenCode replaces the binary and may replace the PTY helper.

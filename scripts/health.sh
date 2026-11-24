@@ -30,6 +30,11 @@ if command -v pkg >/dev/null 2>&1; then
 else
   fail "pkg tidak ditemukan; ini bukan Termux?"
 fi
+if command -v which >/dev/null 2>&1; then
+  ok "which tersedia"
+else
+  warn "which tidak ada; 'opencode upgrade' bisa gagal (pkg install which)"
+fi
 info "prefix: $PREFIX"
 info "home:   $HOME"
 if [ -w "$TMPDIR" ]; then

@@ -26,7 +26,7 @@ bash install.sh
 The installer will:
 
 - install `glibc-repo`, `glibc-runner`, `patchelf`, `curl`, `tar`, `sqlite`,
-  and `gnupg`,
+  `gnupg`, and `which`,
 - download the official `@opencode/cli-linux-arm64` package from npm,
 - patch the ELF interpreter,
 - install the launcher and helper commands.

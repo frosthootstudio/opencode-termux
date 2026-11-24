@@ -135,7 +135,8 @@ No files are written to `~/.opencode/bin` or `$PREFIX/bin` in sandbox mode.
 
 ## What the installer does
 
-- Installs `glibc-repo`, `glibc-runner`, `patchelf`, `curl`, `tar`, and `sqlite`.
+- Installs `glibc-repo`, `glibc-runner`, `patchelf`, `curl`, `tar`, `sqlite`,
+  `gnupg`, and `which`.
 - Downloads the latest official `@opencode/cli-linux-arm64` package from npm.
 - Backs up an existing binary before replacing it.
 - Patches the binary to use Termux's glibc loader.

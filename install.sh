@@ -93,7 +93,7 @@ if [ "$CHECK_ONLY" -eq 1 ]; then
   info "binary:      $BIN"
   info "launcher:    $LAUNCHER"
   info "loader:      $([ -f "$LOADER" ] && echo ada || echo 'belum ada (akan dipasang)')"
-  for cmd in pkg curl tar patchelf sqlite3; do
+  for cmd in pkg curl tar patchelf sqlite3 which; do
     if command -v "$cmd" >/dev/null 2>&1; then
       info "command:     $cmd ok"
     else
@@ -120,7 +120,7 @@ run pkg install -y glibc-repo
 run pkg update -y
 
 say "Memasang dependensi"
-run pkg install -y glibc-runner patchelf curl tar sqlite gnupg
+run pkg install -y glibc-runner patchelf curl tar sqlite gnupg which
 
 if [ "$DRY_RUN" -eq 0 ]; then
   [ -f "$LOADER" ] || die "Loader glibc tidak ditemukan: $LOADER"
