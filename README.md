@@ -65,6 +65,15 @@ OpenCode installer can fix by itself.
 
 ## Quick start
 
+Update Termux first:
+
+```bash
+pkg update -y
+pkg upgrade -y
+```
+
+Then install:
+
 ```bash
 git clone https://github.com/frosthootstudio/opencode-termux.git
 cd opencode-termux

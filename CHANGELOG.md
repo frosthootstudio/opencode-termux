@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.4 — 2026-11-25
+
+- Add explicit `pkg update` and `pkg upgrade` commands to the quick start.
+- Clarify that Termux should be updated before running the installer.
+
 ## 0.2.3 — 2026-11-25
 
 - Clarify the difference between the official OpenCode Mobile companion app
