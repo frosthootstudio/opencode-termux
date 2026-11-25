@@ -218,7 +218,9 @@ Treat them as secrets.
 
 - Android 16, aarch64
 - Termux 0.118.3
-- OpenCode 2.3.2
+- OpenCode 2.3.2 fresh install
+- OpenCode 2.4.1 fresh sandbox install and upgrade path
+- PTY helper 0.6.0
 
 Other Android versions and devices may work, but the glibc/PTY behavior can
 vary. Please include your Android version, Termux version, and OpenCode version

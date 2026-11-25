@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2 — 2026-11-25
+
+- Document tested OpenCode 2.4.1 fresh sandbox install and upgrade path.
+- Record PTY helper 0.6.0 in the tested matrix.
+
 ## 0.2.1 — 2026-11-24
 
 - Install `which` automatically; fixes `opencode upgrade` failing with
