@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3 — 2026-11-25
+
+- Clarify the difference between the official OpenCode Mobile companion app
+  (remote for a computer) and this native Termux runtime.
+
 ## 0.2.2 — 2026-11-25
 
 - Document tested OpenCode 2.4.1 fresh sandbox install and upgrade path.

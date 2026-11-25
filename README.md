@@ -20,6 +20,10 @@ runs the official `linux-arm64` binary directly on Termux by:
 
 The result is lighter than proot and stays inside the Android app sandbox.
 
+> **OpenCode Mobile note:** the official OpenCode Android app is a
+> companion/remote for OpenCode running on a computer. This project is
+> different: it runs OpenCode natively on the Android device through Termux.
+
 ---
 
 ## Requirements
